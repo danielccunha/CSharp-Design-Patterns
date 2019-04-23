@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Patterns.SOLID;
 
 namespace Patterns
 {
@@ -6,7 +6,13 @@ namespace Patterns
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var journal = new Journal();
+            journal.AddEntry("Lorem ipsum");
+            journal.AddEntry("Dolor sit amet");
+
+            var persistence = new Persistence();
+            var filename = @"C:\journal.txt";
+            persistence.SaveToFile(journal, filename, overwrite: true);
         }
     }
 }
