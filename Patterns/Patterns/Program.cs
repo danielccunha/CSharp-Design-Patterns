@@ -5,21 +5,15 @@ namespace Patterns
 {
     class Program
     {
+        public static int Area(Rectangle rectangle) => rectangle.Height * rectangle.Width;
+
         static void Main()
         {
-            var apple = new Product("Apple", Color.Green, Size.Small);
-            var tree = new Product("Tree", Color.Green, Size.Large);
-            var house = new Product("House", Color.Blue, Size.Huge);
+            var rectangle = new Rectangle(10, 20);
+            Console.WriteLine($"{rectangle} has area {Area(rectangle)}");
 
-            var products = new Product[] { apple, tree, house };
-            var betterFilter = new BetterFilter();
-
-            Console.WriteLine("Huge blue products:");
-
-            foreach (var product in betterFilter.Filter(products, new AndSpecification<Product>(
-                    new ColorSpecification(Color.Blue),
-                    new SizeSpecification(Size.Huge))))
-                Console.WriteLine($"- {product.Name} is {product.Color}");
+            var square = new Square(20);
+            Console.WriteLine($"{square} has area {Area(square)}");
         }
     }
 }
