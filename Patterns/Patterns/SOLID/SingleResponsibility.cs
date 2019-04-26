@@ -36,10 +36,10 @@ namespace Patterns.SOLID
 
     public class Persistence
     {
-        public void SaveToFile(Journal journal, string filename, bool overwrite = false)
+        public void SaveToFile(string content, string filename, bool overwrite = false)
         {
             if (overwrite || !File.Exists(filename))
-                File.WriteAllText(filename, journal.ToString());
+                File.WriteAllText(filename, content);
             else
             {
                 // ...
