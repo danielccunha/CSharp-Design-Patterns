@@ -4,7 +4,7 @@
     {
         static void Main()
         {
-            Builder.FluentBuilders.Start();
+            Builder.Exercise.Start();
         }
     }
 }
