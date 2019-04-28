@@ -4,7 +4,7 @@
     {
         static void Main()
         {
-            Factories.AbstractFactory.Start();
+            Factories.Exercise.Start();
         }
     }
 }

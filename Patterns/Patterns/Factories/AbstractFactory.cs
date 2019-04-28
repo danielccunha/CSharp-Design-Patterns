@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Patterns.Factories
 {
@@ -47,26 +48,48 @@ namespace Patterns.Factories
 
     public class HotDrinkMachine
     {
-        public enum AvailableDrink
-        {
-            Coffee, Tea
-        }
-
-        private readonly Dictionary<AvailableDrink, IHotDrinkFactory> _factories 
-            = new Dictionary<AvailableDrink, IHotDrinkFactory>();
+        private readonly Dictionary<string, IHotDrinkFactory> factories 
+            = new Dictionary<string, IHotDrinkFactory>();
 
         public HotDrinkMachine()
         {
-            foreach (AvailableDrink drink in Enum.GetValues(typeof(AvailableDrink)))
+            foreach (var type in typeof(HotDrinkMachine).Assembly.GetTypes())
             {
-                var factory = (IHotDrinkFactory)Activator.CreateInstance(
-                    Type.GetType($"Patterns.Factories.{Enum.GetName(typeof(AvailableDrink), drink)}Factory"));
+                if (typeof(IHotDrinkFactory).IsAssignableFrom(type) && !type.IsInterface)
+                {
+                    var name = type.Name.Replace("Factory", string.Empty);
+                    var factory = (IHotDrinkFactory)Activator.CreateInstance(type);
 
-                _factories.Add(drink, factory);
+                    factories.Add(name, factory);
+                }
             }
         }
 
-        public IHotDrink MakeDrink(AvailableDrink drink, int amount) => _factories[drink].Prepare(amount);
+        public IHotDrink MakeDrink()
+        {
+            Console.WriteLine("Available drinks:");
+
+            foreach (var drink in factories.Keys)            
+                Console.WriteLine($"- {drink}");
+
+            while (true)
+            {
+                Console.Write("\nChosen drink: ");
+                var input = Console.ReadLine();
+                var pair = factories.FirstOrDefault(f => f.Key.ToLower() == (input?.ToLower() ?? string.Empty));
+
+                if (pair.Value != null)
+                {
+                    Console.Write("Amout: ");
+                    input = Console.ReadLine();
+
+                    if (input != null && int.TryParse(input, out int amount))
+                        return pair.Value.Prepare(amount);
+                }
+
+                Console.WriteLine("Invalid input. Try again.");
+            }
+        }
     }
 
     internal class AbstractFactory
@@ -74,7 +97,7 @@ namespace Patterns.Factories
         internal static void Start()
         {
             var machine = new HotDrinkMachine();
-            var drink = machine.MakeDrink(HotDrinkMachine.AvailableDrink.Tea, 100);
+            var drink = machine.MakeDrink();
 
             drink.Consume();
         }
