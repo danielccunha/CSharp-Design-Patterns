@@ -4,7 +4,12 @@ namespace Patterns.Prototypes
 {
     public class CopyConstructors
     {
-        public class Person
+        public interface IPrototype<T>
+        {
+            T DeepCopy();
+        }
+
+        public class Person : IPrototype<Person>
         {
             public string[] Names { get; set; }
             public Address Address { get; set; }
@@ -28,9 +33,14 @@ namespace Patterns.Prototypes
             {
                 return $"{{ {nameof(Names)}={string.Join(" ", Names)}, {nameof(Address)}={Address} }}";
             }
+
+            public Person DeepCopy()
+            {
+                return new Person(Names, Address.DeepCopy());
+            }
         }
 
-        public class Address
+        public class Address : IPrototype<Address>
         {
             public string Street { get; set; }
             public int Number { get; set; }
@@ -50,6 +60,11 @@ namespace Patterns.Prototypes
             public override string ToString()
             {
                 return $"{{ {nameof(Street)}={Street}, {nameof(Number)}={Number} }}";
+            }
+
+            public Address DeepCopy()
+            {
+                return new Address(Street, Number);
             }
         }
 
