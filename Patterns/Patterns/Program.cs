@@ -4,7 +4,7 @@
     {
         static void Main()
         {
-            Prototypes.CopyConstructors.Start();
+            Prototypes.PrototypesExample.Start();
         }
     }
 }
