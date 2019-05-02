@@ -4,7 +4,7 @@
     {
         static void Main()
         {
-            Prototypes.PrototypesExample.Start();
+            Singletons.Implementation.Start();
         }
     }
 }
