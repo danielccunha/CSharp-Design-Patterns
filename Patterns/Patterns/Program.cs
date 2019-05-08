@@ -4,7 +4,7 @@
     {
         static void Main()
         {
-            Singletons.Implementation.Start();
+            Bridges.Exercise.Exercise.Start();
         }
     }
 }
