@@ -4,7 +4,7 @@
     {
         static void Main()
         {
-            Bridges.Exercise.Exercise.Start();
+            Compositions.Exercise.Exercise.Start();
         }
     }
 }
