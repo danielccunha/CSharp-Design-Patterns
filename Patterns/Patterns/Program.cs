@@ -2,9 +2,6 @@
 {
     class Program
     {
-        static void Main()
-        {
-            Compositions.Exercise.Exercise.Start();
-        }
+        static void Main() => Adapters.Exercise.Start();
     }
 }
