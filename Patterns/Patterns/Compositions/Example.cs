@@ -9,7 +9,7 @@ namespace Patterns.Compositions
         public virtual string Name { get; set; } = "Group";
         public string Color { get; set; }
 
-        private Lazy<List<GraphicObject>> _children = new Lazy<List<GraphicObject>>();
+        private readonly Lazy<List<GraphicObject>> _children = new Lazy<List<GraphicObject>>();
         public List<GraphicObject> Children => _children.Value;
 
         private void Print(StringBuilder builder, int depth)
