@@ -2,6 +2,6 @@
 {
     class Program
     {
-        static void Main() => Commands.Example.Start();
+        static void Main() => Interpreters.Example.Start();
     }
 }
