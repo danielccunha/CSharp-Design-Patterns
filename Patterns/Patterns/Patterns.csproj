@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Decorators\**" />
+    <EmbeddedResource Remove="Decorators\**" />
+    <None Remove="Decorators\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Singletons\Capitals.txt" />
   </ItemGroup>
 
@@ -18,10 +24,6 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.2" />
     <PackageReference Include="morelinq" Version="3.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Decorators\" />
   </ItemGroup>
 
 </Project>
