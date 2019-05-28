@@ -4,7 +4,7 @@
     {
         static void Main()
         {
-            Compositions.Exercise.Exercise.Start();
+            ChainOfResponsability.BrokerChain.Start();
         }
     }
 }
