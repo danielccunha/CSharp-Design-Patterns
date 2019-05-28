@@ -2,9 +2,6 @@
 {
     class Program
     {
-        static void Main()
-        {
-            ChainOfResponsability.BrokerChain.Start();
-        }
+        static void Main() => Commands.Example.Start();
     }
 }
