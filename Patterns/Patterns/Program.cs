@@ -2,6 +2,6 @@
 {
     class Program
     {
-        static void Main() => Iterators.ObjectIterator.Start();
+        static void Main() => Iterators.ArrayBackedProperties.Start();
     }
 }

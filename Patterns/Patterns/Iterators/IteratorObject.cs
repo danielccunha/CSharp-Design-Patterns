@@ -79,7 +79,7 @@ namespace Patterns.Iterators
         }
     }
 
-    public static class ObjectIterator
+    public static class IteratorObject
     {
         public static void Start()
         {
