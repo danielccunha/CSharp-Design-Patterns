@@ -2,6 +2,6 @@
 {
     class Program
     {
-        static void Main() => Interpreters.Example.Start();
+        static void Main() => Iterators.ObjectIterator.Start();
     }
 }
