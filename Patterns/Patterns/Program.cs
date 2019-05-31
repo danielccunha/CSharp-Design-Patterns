@@ -2,6 +2,6 @@
 {
     class Program
     {
-        static void Main() => Iterators.ArrayBackedProperties.Start();
+        static void Main() => Mediators.ChatRoomExample.Start();
     }
 }
