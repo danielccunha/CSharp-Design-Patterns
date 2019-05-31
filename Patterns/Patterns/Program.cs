@@ -2,6 +2,6 @@
 {
     class Program
     {
-        static void Main() => Mediators.EventBrokerExample.Start();
+        static void Main() => Mementos.Example.Start();
     }
 }
