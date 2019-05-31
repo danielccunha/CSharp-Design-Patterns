@@ -2,6 +2,6 @@
 {
     class Program
     {
-        static void Main() => Mediators.ChatRoomExample.Start();
+        static void Main() => Mediators.EventBrokerExample.Start();
     }
 }
