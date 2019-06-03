@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Patterns.Mementos
 {
@@ -16,29 +15,81 @@ namespace Patterns.Mementos
 
     public class BankAccount
     {
+        private readonly List<Memento> changes = new List<Memento>();
+        private int currentMemento;
+
         public int Balance { get; private set; }
 
         public BankAccount(int balance)
         {
             Balance = balance;
+            changes.Add(new Memento(balance));
         }
 
         public Memento Deposit(int amount)
         {
             Balance += amount;
-            return new Memento(Balance);
+            var memento = new Memento(Balance);
+
+            changes.Add(memento);
+            ++currentMemento;
+
+            return memento;
         }
 
         public Memento Withdraw(int amount)
         {
             Balance -= amount;
-            return new Memento(Balance);
+            var memento = new Memento(Balance);
+
+            changes.Add(memento);
+            ++currentMemento;
+
+            return memento;
         }
 
-        public void Restore(Memento memento)
+        public Memento Restore(Memento memento)
         {
-            Balance = memento.Balance;
+            if (memento != null)
+            {
+                Balance = memento.Balance;
+
+                changes.Add(memento);
+                ++currentMemento;
+
+                return memento;
+            }
+
+            return null;
         }
+
+        public Memento Undo()
+        {
+            if (currentMemento > 0)
+            {
+                var memento = changes[--currentMemento];
+                Balance = memento.Balance;
+
+                return memento;
+            }
+
+            return null;
+        }
+
+        public Memento Redo()
+        {
+            if (currentMemento + 1 < changes.Count)
+            {
+                var memento = changes[++currentMemento];
+                Balance = memento.Balance;
+
+                return memento;
+            }
+
+            return null;
+        }
+
+        public override string ToString() => $"{{ {nameof(Balance)} = {Balance} }}";
     }
 
     public static class Example
@@ -46,16 +97,19 @@ namespace Patterns.Mementos
         public static void Start()
         {
             var account = new BankAccount(1000);
-            var m1 = account.Deposit(500);
-            var m2 = account.Withdraw(250);
+            account.Deposit(500);
+            account.Withdraw(250);
 
-            Console.WriteLine(account.Balance);
+            Console.WriteLine($"Started with {account.Balance   }");
 
-            account.Restore(m1);
-            Console.WriteLine(account.Balance);
+            account.Undo();
+            Console.WriteLine($"Undo one: {account}");
 
-            account.Restore(m2);
-            Console.WriteLine(account.Balance);
+            account.Undo();
+            Console.WriteLine($"Undo two: {account}");
+
+            account.Redo();
+            Console.WriteLine($"Redo: {account}");
         }
     }
 }
